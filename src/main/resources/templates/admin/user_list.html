@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>User List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/}" th:text="#{home}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/admin/game/list}" th:text="#{gameList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/admin/user/list}"  th:text="#{userList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/shop}" th:text="#{shop}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{logout}"/>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <table class="table table-borderless table-dark">
+        <thead>
+        <tr>
+            <th th:text="#{id}"></th>
+            <th th:text="#{firstName}"></th>
+            <th th:text="#{lastName}"></th>
+            <th th:text="#{email}"></th>
+            <th th:text="#{password}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.password}"></td>
+            <td>
+
+                <a th:href="@{/admin/user/delete/{id}(id=${user.id})}" class="btn btn-danger btn-sm" role="button" th:text="#{delete}"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

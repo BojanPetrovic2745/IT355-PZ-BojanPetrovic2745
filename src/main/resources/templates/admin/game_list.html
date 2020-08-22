@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Game List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/}" th:text="#{home}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/admin/game/list}" th:text="#{gameList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/admin/user/list}" th:text="#{userList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/shop}" th:text="#{shop}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{logout}"/>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div style="text-align: right; margin-bottom: 5px;">
+        <a th:href="@{/admin/game/add}" class="btn btn-success" role="button" th:text="#{addGame}"/>
+    </div>
+    <table class="table table-borderless table-dark">
+        <thead>
+        <tr>
+            <th th:text="#{id}"></th>
+            <th th:text="#{title}"></th>
+            <th th:text="#{releaseYear}"></th>
+            <th th:text="#{genre}"></th>
+            <th th:text="#{quiantity}"></th>
+            <th th:text="#{price}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="game : ${games}">
+            <td th:text="${game.idGame}"/>
+            <td th:text="${game.title}"/>
+            <td th:text="${game.releaseYear}"/>
+            <td th:text="${game.genre}"/>
+            <td th:text="${game.quantity}"/>
+            <th th:text="${game.price}"/>
+            <td>
+                <a th:href="@{/admin/game/edit/{id}(id=${game.idGame})}"
+                   class="btn btn-success btn-sm" role="button" th:text="#{update}"/>
+                <a th:href="@{/admin/game/delete/{id}(id=${game.idGame})}"
+                        class="btn btn-danger btn-sm" role="button" th:text="#{delete}"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

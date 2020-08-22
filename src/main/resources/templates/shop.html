@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Shop Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/}" th:text="#{home}">Home</a>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/admin/game/list}" th:text="#{gameList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/admin/user/list}" th:text="#{userList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/shop}" th:text="#{shop}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{logout}"/>
+        </div>
+    </div>
+</nav>
+<table border="1" class="table table-borderless table-dark">
+    <thead>
+    <tr>
+        <th th:text="#{id}"></th>
+        <th th:text="#{title}"></th>
+        <th th:text="#{releaseYear}"></th>
+        <th th:text="#{genre}"></th>
+        <th th:text="#{quiantity}"></th>
+        <th th:text="#{price}"></th>
+        <th>#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td><a th:href="@{/product/{id}(id=${product.idGame})}" th:text="${product.idGame}"></a></td>
+        <td th:text="${product.title}"></td>
+        <td th:text="${product.releaseYear}"></td>
+        <td th:text="${product.genre}"></td>
+        <td th:text="${product.quantity}"></td>
+        <td th:text="${product.price}"></td>
+        <td>
+            <form action="#" th:action="@{/cart/add}" method="post">
+                <input type="hidden" th:value="${product.idGame}" name="id"/>
+                <button class="btn btn-success" type="submit" th:text="#{addToCart}"></button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

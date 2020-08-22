@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Product Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/}" th:text="#{home}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/admin/game/list}" th:text="#{gameList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/admin/user/list}" th:text="#{userList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/shop}" th:text="#{shop}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{logout}"/>
+        </div>
+    </div>
+</nav>
+
+<form th:action="@{/cart/add}">
+    <table border="1" class="table table-borderless table-dark">
+        <tbody>
+        <tr>
+            <th th:text="#{id}"></th>
+            <td><input type="hidden" th:value="${product.idGame}" name="id"/><span th:text="${product.idGame}"></span></td>
+        </tr>
+        <tr>
+            <th th:text="#{title}"></th>
+            <td th:text="${product.title}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{releaseYear}"> </th>
+            <td th:text="${product.releaseYear}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{price}"></th>
+            <td>Rs.<span th:text="${product.price}"></span></td>
+        </tr>
+        <tr>
+            <th th:text="#{quiantity}"></th>
+            <td><input type="number" min="1" value="1" name="qty" /></td>
+        </tr>
+        <tr>
+            <th>#</th>
+            <td><button class="btn btn-success" type="submit" th:text="#{addToCart}"></button></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Add Edit Game</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/}" th:text="#{home}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/admin/game/list}" th:text="#{gameList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/admin/user/list}" th:text="#{userList}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" href="#" th:href="@{/shop}" th:text="#{shop}"/>
+            <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{logout}"/>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <form action="#" th:action="@{/admin/game/addEdit}" method="post" th:object="${game}">
+        <label th:text="#{title}"></label>:<input type="text" class="form-control form-control-lg" id="title" th:field="*{title}" th:placeholder="#{title}"/>
+        <br/>
+        <label th:text="#{releaseYear}"></label>
+        <input type="text" class="form-control form-control-lg" id="releaseYear" th:field="*{releaseYear}" th:placeholder="#{releaseYear}"/>
+        <br/>
+       <label th:text="#{genre}"></label>
+        <input type="text" class="form-control form-control-lg" id="genre" th:field="*{genre}"  th:placeholder="#{genre}"/>
+        <label th:text="#{quiantity}"></label>
+        <input type="text" class="form-control form-control-lg" id="quantity" th:field="*{quantity}"  th:placeholder="#{quiantity}"/>
+        <label th:text="#{price}"></label>
+        <input type="text" class="form-control form-control-lg" id="price" th:field="*{price}" th:placeholder="#{price}" />
+        <input type="hidden" id="id" th:field="*{idGame}">
+        <br/>
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+</div>
+</body>
+</html>
